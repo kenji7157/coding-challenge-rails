@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_22_064343) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_22_065411) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_22_064343) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plan_id"], name: "index_basic_charges_on_plan_id"
+  end
+
+  create_table "commodity_charges", force: :cascade do |t|
+    t.bigint "plan_id", null: false
+    t.integer "kwh_from", null: false
+    t.integer "kwh_to"
+    t.decimal "charge", precision: 12, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plan_id"], name: "index_commodity_charges_on_plan_id"
   end
 
   create_table "plans", force: :cascade do |t|
@@ -38,5 +48,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_22_064343) do
   end
 
   add_foreign_key "basic_charges", "plans"
+  add_foreign_key "commodity_charges", "plans"
   add_foreign_key "plans", "providers"
 end
