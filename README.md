@@ -1,24 +1,44 @@
-# README
+## 環境構築
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### 前提
 
-Things you may want to cover:
+- postgreDBが入っていること
+- ruby 3.1.0が使えること
+- etc
 
-* Ruby version
+### gemのインストール
 
-* System dependencies
+```
+# bundle install --path vendor/bundle
+```
+  
+> `--path vendor/bundle`をつけることで、ディレクトリ内のvendor/bundleにgemがインストールされる
 
-* Configuration
+### データベースの構築
 
-* Database creation
+```
+$ bundle exec rake db:create RAILE_ENV=development
+Created database 'coding_challenge_rails_development'
+Created database 'coding_challenge_rails_test'
+```
 
-* Database initialization
+### マイグレーションの実行
 
-* How to run the test suite
+```
+bin/rails db:migrate
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### 初期データの投入
 
-* Deployment instructions
+```
+$ bin/rails provider:import
+$ bin/rails plan:import
+$ bin/rails basic_charge:import
+$ bin/rails commodity_charge:import
+```
 
-* ...
+### 開発サーバの起動
+
+```
+$ bin/rails s
+```
