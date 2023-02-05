@@ -10,7 +10,7 @@ class Plan < ApplicationRecord
     target_basic_charge = self.basic_charges.find do |basic_charge|
       basic_charge.ampere == ampere
     end
-    basic_charge = target_basic_charge.blank? ? nil : target_basic_charge.charge
+    basic_charge = target_basic_charge && target_basic_charge.charge
   end
 
   def commodity_charge_by(kwh)
