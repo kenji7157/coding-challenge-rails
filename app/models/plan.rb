@@ -5,4 +5,11 @@ class Plan < ApplicationRecord
 
   validates :provider_id, presence: true
   validates :name, presence: true
+
+  def basic_charge_by(ampere)
+    target_basic_charge = self.basic_charges.find do |basic_charge|
+      basic_charge.ampere == ampere
+    end
+    basic_charge = target_basic_charge.blank? ? nil : target_basic_charge.charge
+  end
 end

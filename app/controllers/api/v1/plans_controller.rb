@@ -10,14 +10,11 @@ module Api
         Plan.preload(:basic_charges).find_each do |plan|
       
           # 1. 基本料金を計算
-          target_basic_charge = plan.basic_charges.find do |basic_charge|
-            basic_charge.ampere == ampere
-          end
-          # NOTE: ここでnextを実行することによって、該当する契約容量を持たないプランはレスポンス候補から外れる
-          if target_basic_charge.blank?
+          basic_charge = plan.basic_charge_by(ampere)
+          # # NOTE: ここでnextを実行することによって、該当する契約容量を持たないプランはレスポンス候補から外れる
+          if basic_charge.blank?
             next
           end
-          basic_charge = target_basic_charge.charge
 
           # 2. 従量料金を計算
           total_commodity_charge = 0
@@ -34,9 +31,7 @@ module Api
             else kwh > max_kwh
               diff_kwh = max_kwh
             end
-
             total_commodity_charge = total_commodity_charge + charge * diff_kwh
-
           end 
           
           simulation_result = {
