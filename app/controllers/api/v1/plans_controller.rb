@@ -2,8 +2,8 @@ module Api
   module V1
     class PlansController < ApplicationController
       def index
-        ampere = params[:ampere]
-        kwh = params[:kwh]
+        ampere = plan_params[:ampere].to_i
+        kwh = plan_params[:kwh].to_i
         response = [] 
 
         Plan.preload(:basic_charges).find_each do |plan|      
@@ -21,13 +21,18 @@ module Api
           simulation_result = {
             provider_name: plan.provider.name,
             plan_name: plan.name,
-            price: basic_charge + total_commodity_charge,
+            price: (basic_charge + total_commodity_charge).floor,
           }
           response.push(simulation_result)
         end
 
 
         render json: response, status: :ok
+      end
+
+      private
+      def plan_params
+        params.permit(:ampere, :kwh)
       end
     end
   end
