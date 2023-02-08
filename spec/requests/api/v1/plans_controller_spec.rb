@@ -85,5 +85,14 @@ RSpec.describe "PlansController", type: :request do
         end
       end
     end
+
+    describe "異常系" do
+      context "ampereが未入力の場合" do
+        it "シミュレーション結果が正しく取得できること" do
+          get "/api/v1/plans?ampere=&kwh=650"
+          expect(response.status).to eq(200)
+        end
+      end
+    end
   end
 end

@@ -4,6 +4,9 @@ module Api
       def index
         ampere = plan_params[:ampere].to_i
         kwh = plan_params[:kwh].to_i
+
+        render json: { errors: "エラー" }, status: 400
+        
         response = []
 
         Plan.preload(:basic_charges).find_each do |plan|
@@ -24,7 +27,7 @@ module Api
           response.push(simulation_result)
         end
 
-        render json: response, status: :ok
+        render json: response, status: 200
       end
 
       private
