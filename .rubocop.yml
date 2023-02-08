@@ -1,0 +1,22 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'db/schema.rb'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - "log/**/*"
+    - 'tmp/**/*'
+
+# 文字列のダブルクォートチェック
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# 数字の桁区切りは不要
+Style/NumericLiterals:
+  Enabled: false
