@@ -6,10 +6,17 @@
 - ruby 3.1.0が使えること
 - etc
 
+### 環境変数ファイルの作成
+
+```
+$ cp .env.sample .env.development
+```
+
+
 ### gemのインストール
 
 ```
-# bundle install --path vendor/bundle
+$ bundle install --path vendor/bundle
 ```
   
 > `--path vendor/bundle`をつけることで、ディレクトリ内のvendor/bundleにgemがインストールされる
@@ -17,7 +24,7 @@
 ### データベースの構築
 
 ```
-$ bundle exec rake db:create RAILE_ENV=development
+$ bin/rails db:create RAILE_ENV=development
 Created database 'coding_challenge_rails_development'
 Created database 'coding_challenge_rails_test'
 ```
@@ -25,7 +32,7 @@ Created database 'coding_challenge_rails_test'
 ### マイグレーションの実行
 
 ```
-bin/rails db:migrate
+$ bin/rails db:migrate
 ```
 
 ### 初期データの投入
