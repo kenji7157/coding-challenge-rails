@@ -1,5 +1,5 @@
 class BasicCharge < ApplicationRecord
-  belongs_to :plan, foreign_key: "plan_id"
+  belongs_to :plan
 
   validates :plan_id, presence: true
   validates :ampere, presence: true

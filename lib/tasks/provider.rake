@@ -1,7 +1,6 @@
-require 'csv'
+require "csv"
 
 namespace :provider do
-
   csv_dir = Rails.root.join("lib/assets")
   directory csv_dir
 
@@ -11,11 +10,8 @@ namespace :provider do
       csv_file = "#{csv_dir}/provider.csv"
       CSV.foreach(csv_file, headers: true, skip_blanks: true).with_index do |row, index|
         provider = Provider.find_or_initialize_by(name: row["name"])
-        unless provider.save
-          raise "Provider の保存に失敗しました（#{index + 2}行目）。"
-        end
-      end 
+        raise "Provider の保存に失敗しました（#{index + 2}行目）。" unless provider.save
+      end
     end
   end
-
 end
