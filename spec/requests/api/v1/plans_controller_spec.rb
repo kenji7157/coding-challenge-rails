@@ -88,9 +88,49 @@ RSpec.describe "PlansController", type: :request do
 
     describe "異常系" do
       context "ampereが未入力の場合" do
-        it "シミュレーション結果が正しく取得できること" do
+        it "エラーメッセージが返されること" do
           get "/api/v1/plans?ampere=&kwh=650"
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(400)
+          body = JSON.parse(response.body)
+          expect(body["errors"]).to eq(["契約アンペア数は[10 / 15 / 20 / 30 / 40 / 50 / 60]のいずれかの値を入力してください"])
+        end
+      end
+
+      context "kwhが未入力の場合" do
+        it "エラーメッセージが返されること" do
+          get "/api/v1/plans?ampere=30&kwh="
+          expect(response.status).to eq(400)
+          body = JSON.parse(response.body)
+          expect(body["errors"]).to eq(["使用量は0以上の整数を入力してください"])
+        end
+      end
+
+      context "ampereが文字列の場合" do
+        it "エラーメッセージが返されること" do
+          get "/api/v1/plans?ampere=test&kwh=650"
+          expect(response.status).to eq(400)
+          body = JSON.parse(response.body)
+          expect(body["errors"]).to eq(["契約アンペア数は[10 / 15 / 20 / 30 / 40 / 50 / 60]のいずれかの値を入力してください"])
+        end
+      end
+
+      context "kwhが文字列の場合" do
+        it "エラーメッセージが返されること" do
+          get "/api/v1/plans?ampere=30&kwh=test"
+          expect(response.status).to eq(400)
+          body = JSON.parse(response.body)
+          expect(body["errors"]).to eq(["使用量は0以上の整数を入力してください"])
+        end
+      end
+
+
+      context "ampereとkwhが未入力の場合" do
+        it "エラーメッセージが返されること" do
+          get "/api/v1/plans?ampere=&kwh="
+          expect(response.status).to eq(400)
+          body = JSON.parse(response.body)
+          expect(body["errors"]).to eq(["契約アンペア数は[10 / 15 / 20 / 30 / 40 / 50 / 60]のいずれかの値を入力してください",
+                                        "使用量は0以上の整数を入力してください"])
         end
       end
     end

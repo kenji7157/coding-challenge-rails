@@ -4,11 +4,18 @@ module Api
       def index
         ampere = plan_params[:ampere].to_i
         kwh = plan_params[:kwh].to_i
+        contract_ampere_list = [10, 15, 20, 30, 40, 50, 60]
+        errors = []
 
-        render json: { errors: "エラー" }, status: 400
-        
+        # 入力チェック
+        if contract_ampere_list.exclude?(ampere)
+          errors.push("契約アンペア数は[10 / 15 / 20 / 30 / 40 / 50 / 60]のいずれかの値を入力してください")
+        end
+        errors.push("使用量は0以上の整数を入力してください") if 0 >= kwh
+        return render json: { errors: }, status: :bad_request unless errors.empty?
+
+        # シミュレーション結果の取得
         response = []
-
         Plan.preload(:basic_charges).find_each do |plan|
           # 1. 基本料金を計算
           basic_charge = plan.basic_charge_by(ampere)
@@ -27,7 +34,7 @@ module Api
           response.push(simulation_result)
         end
 
-        render json: response, status: 200
+        render json: response, status: :ok
       end
 
       private
