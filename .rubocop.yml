@@ -6,6 +6,7 @@ require:
 AllCops:
   Exclude:
     - 'vendor/**/*'
+    - 'spec/**/*'
     - 'db/schema.rb'
     - 'db/**/*'
     - 'config/**/*'
@@ -19,4 +20,16 @@ Style/StringLiterals:
 
 # 数字の桁区切りは不要
 Style/NumericLiterals:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 26
+
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/BlockLength:
+  Max: 35
+
+Rails/HttpStatus:
   Enabled: false

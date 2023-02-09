@@ -18,37 +18,19 @@ RSpec.describe "PlansController", type: :request do
     let!(:jxtg_basic_charge) { create(:basic_charge, plan: plan_jxtg, ampere: 30, charge: 858.00) }
 
     let!(:tep_commodity_charge1) { create(:commodity_charge, plan: plan_tep, kwh_from: 0, kwh_to: 120, charge: 19.88) }
-    let!(:tep_commodity_charge2) do
-      create(:commodity_charge, plan: plan_tep, kwh_from: 120, kwh_to: 300, charge: 26.48)
-    end
-    let!(:tep_commodity_charge3) do
-      create(:commodity_charge, plan: plan_tep, kwh_from: 300, kwh_to: nil, charge: 30.57)
-    end
+    let!(:tep_commodity_charge2) { create(:commodity_charge, plan: plan_tep, kwh_from: 120, kwh_to: 300, charge: 26.48) }
+    let!(:tep_commodity_charge3) { create(:commodity_charge, plan: plan_tep, kwh_from: 300, kwh_to: nil, charge: 30.57) }
 
-    let!(:loop_commodity_charge1) do
-      create(:commodity_charge, plan: plan_loop, kwh_from: 0, kwh_to: nil, charge: 26.40)
-    end
+    let!(:loop_commodity_charge1) { create(:commodity_charge, plan: plan_loop, kwh_from: 0, kwh_to: nil, charge: 26.40) }
 
     let!(:tkg_commodity_charge1) { create(:commodity_charge, plan: plan_tkg, kwh_from: 0, kwh_to: 140, charge: 23.67) }
-    let!(:tkg_commodity_charge2) do
-      create(:commodity_charge, plan: plan_tkg, kwh_from: 140, kwh_to: 350, charge: 23.88)
-    end
-    let!(:tkg_commodity_charge3) do
-      create(:commodity_charge, plan: plan_tkg, kwh_from: 350, kwh_to: nil, charge: 26.41)
-    end
+    let!(:tkg_commodity_charge2) { create(:commodity_charge, plan: plan_tkg, kwh_from: 140, kwh_to: 350, charge: 23.88) }
+    let!(:tkg_commodity_charge3) { create(:commodity_charge, plan: plan_tkg, kwh_from: 350, kwh_to: nil, charge: 26.41) }
 
-    let!(:jxtg_commodity_charge1) do
-      create(:commodity_charge, plan: plan_jxtg, kwh_from: 0, kwh_to: 120, charge: 19.88)
-    end
-    let!(:jxtg_commodity_charge2) do
-      create(:commodity_charge, plan: plan_jxtg, kwh_from: 120, kwh_to: 300, charge: 26.48)
-    end
-    let!(:jxtg_commodity_charge3) do
-      create(:commodity_charge, plan: plan_jxtg, kwh_from: 300, kwh_to: 600, charge: 25.08)
-    end
-    let!(:jxtg_commodity_charge4) do
-      create(:commodity_charge, plan: plan_jxtg, kwh_from: 600, kwh_to: nil, charge: 26.15)
-    end
+    let!(:jxtg_commodity_charge1) { create(:commodity_charge, plan: plan_jxtg, kwh_from: 0, kwh_to: 120, charge: 19.88) }
+    let!(:jxtg_commodity_charge2) { create(:commodity_charge, plan: plan_jxtg, kwh_from: 120, kwh_to: 300, charge: 26.48) }
+    let!(:jxtg_commodity_charge3) { create(:commodity_charge, plan: plan_jxtg, kwh_from: 300, kwh_to: 600, charge: 25.08) }
+    let!(:jxtg_commodity_charge4) { create(:commodity_charge, plan: plan_jxtg, kwh_from: 600, kwh_to: nil, charge: 26.15) }
   end
 
   describe "GET /plans" do

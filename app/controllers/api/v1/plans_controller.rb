@@ -11,8 +11,8 @@ module Api
         if contract_ampere_list.exclude?(ampere)
           errors.push("契約アンペア数は[10 / 15 / 20 / 30 / 40 / 50 / 60]のいずれかの値を入力してください")
         end
-        errors.push("使用量は0以上の整数を入力してください") if 0 >= kwh
-        return render json: { errors: }, status: :bad_request unless errors.empty?
+        errors.push("使用量は0以上の整数を入力してください") if kwh <= 0
+        return render json: { errors: }, status: 400 unless errors.empty?
 
         # シミュレーション結果の取得
         response = []
@@ -34,7 +34,7 @@ module Api
           response.push(simulation_result)
         end
 
-        render json: response, status: :ok
+        render json: response, status: 200
       end
 
       private
