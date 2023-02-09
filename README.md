@@ -35,30 +35,20 @@ POSTGRES_PASSWORD="password"
 
 
 ```
-# イメージを作成する
 $ docker-compose build --no-cache
 ```
 
 ### 1.3 コンテナの作成・起動
 
 ```
-# イメージを元にコンテナを作成し、起動する
 $ docker-compose up -d
 
-# マイグレーションの実行
-$ docker-compose run --rm web bin/rails db:migrate
+# 初期データ投入
+$ chmod +x ./docker-setup.sh
+$ ./docker-setup.sh
 ```
 
-### 1.4 初期データの投入
-
-```
-$ docker-compose run --rm web bin/rails provider:import
-$ docker-compose run --rm web bin/rails plan:import
-$ docker-compose run --rm web bin/rails basic_charge:import
-$ docker-compose run --rm web bin/rails commodity_charge:import
-```
-
-### 1.5 動作確認
+### 1.4 動作確認
 
 - http://localhost:3000/ にアクセスして画面が開けること
 - 上記確認後に、以下を実行しシミュレーション結果が得られていれば環境構築完了
@@ -67,13 +57,14 @@ $ docker-compose run --rm web bin/rails commodity_charge:import
 $ curl -H "Content-Type: application/json" -X GET -d '{"ampere": 30, "kwh": 120 }' http://localhost:3000/api/v1/plans
 ```
 
-### 1.6 Tips
-・コンテナの停止・開始
+### 1.5 Tips
+・コンテナの停止
 ```
-# コンテナを停止
 $ docker-compose stop
+```
 
-# コンテナを開始
+・コンテナの起動（初回環境構築後は、以下のコマンドで開発サーバが起動する）
+```
 $ docker-compose start
 ```
 
@@ -103,8 +94,6 @@ $ cp .env.sample .env.development
 $ bundle install --path vendor/bundle
 ```
   
-> `--path vendor/bundle`をつけることで、ディレクトリ内のvendor/bundleにgemがインストールされる
-
 ### 2.3 データベースの構築
 
 ```
