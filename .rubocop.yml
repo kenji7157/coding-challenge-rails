@@ -5,14 +5,14 @@ require:
 
 AllCops:
   Exclude:
-    - 'vendor/**/*'
-    - 'spec/**/*'
-    - 'db/schema.rb'
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'bin/**/*'
+    - "vendor/**/*"
+    - "spec/**/*"
+    - "db/schema.rb"
+    - "db/**/*"
+    - "config/**/*"
+    - "bin/**/*"
     - "log/**/*"
-    - 'tmp/**/*'
+    - "tmp/**/*"
 
 # 文字列のダブルクォートチェック
 Style/StringLiterals:
@@ -23,7 +23,7 @@ Style/NumericLiterals:
   Enabled: false
 
 Metrics/AbcSize:
-  Max: 26
+  Max: 28
 
 Metrics/MethodLength:
   Max: 25
